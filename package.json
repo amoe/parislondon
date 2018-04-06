@@ -32,5 +32,8 @@
     "dev": "webpack-dev-server",
     "repl": "ts-node",
     "build": "make -f main.mk dist"
+  },
+  "dependencies": {
+    "vue2-google-maps": "^0.8.11"
   }
 }
