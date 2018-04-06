@@ -37,10 +37,6 @@ module.exports = {
                 pathRewrite: {"^/api": ""}
             }
         },
-        // Force the dev server to serve the index XHTML page
-        historyApiFallback: {
-            index: 'index.xhtml'
-        }
     },
     plugins: [
         new webpack.DefinePlugin(loadDefinitions())
