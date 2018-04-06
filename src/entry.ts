@@ -6,8 +6,20 @@ import ApplicationRoot from './components/ApplicationRoot.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import actions from './actions'
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 
 Vue.use(Vuex);
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'YOUR_API_TOKEN',
+        libraries: 'places', // This is required if you use the Autocomplete plugin
+        // OR: libraries: 'places,drawing'
+        // OR: libraries: 'places,drawing,visualization'
+        // (as you require)
+    }
+})
+
 
 const store = new Vuex.Store({
     state: {

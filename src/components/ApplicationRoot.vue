@@ -13,6 +13,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import utility from '../utility';
+
  export default Vue.extend({
      components: {
      },

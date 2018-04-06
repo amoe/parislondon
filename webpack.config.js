@@ -40,5 +40,10 @@ module.exports = {
         historyApiFallback: {
             index: 'index.xhtml'
         }
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            GOOGLE_MAPS_API_KEY: 42
+        })
+    ]
 };
