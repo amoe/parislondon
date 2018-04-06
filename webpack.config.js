@@ -1,6 +1,7 @@
 // webpack configuration file
 
 const webpack = require('webpack');
+const loadDefinitions = require('./build/load-definitions');
 
 module.exports = {
     entry: ["./src/entry.ts"],
@@ -42,8 +43,6 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.DefinePlugin({
-            GOOGLE_MAPS_API_KEY: 42
-        })
+        new webpack.DefinePlugin(loadDefinitions())
     ]
 };

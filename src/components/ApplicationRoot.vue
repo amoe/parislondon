@@ -2,6 +2,8 @@
   <div>
     <h1>New Project from amoe-vue-template</h1>
 
+    <p>{{apiKey}}</p>
+
     <p>Hi there!</p>
     <p>The value is: <code>{{count}}</code></p>
     <button v-on:click="greet">Greet</button>
@@ -19,6 +21,7 @@ import utility from '../utility';
      },
      data: function() {
          return {
+             apiKey: GOOGLE_MAPS_API_KEY
          };
      },
      methods: {
