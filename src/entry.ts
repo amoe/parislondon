@@ -12,7 +12,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(Vuex);
 Vue.use(VueGoogleMaps, {
     load: {
-        key: 'YOUR_API_TOKEN',
+        key: GOOGLE_MAPS_API_KEY,
         libraries: 'places', // This is required if you use the Autocomplete plugin
         // OR: libraries: 'places,drawing'
         // OR: libraries: 'places,drawing,visualization'

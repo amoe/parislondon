@@ -2,12 +2,15 @@
   <div>
     <h1>New Project from amoe-vue-template</h1>
 
-    <p>{{apiKey}}</p>
 
-    <p>Hi there!</p>
-    <p>The value is: <code>{{count}}</code></p>
-    <button v-on:click="greet">Greet</button>
-    <button v-on:click="doIncrement">Inc</button>
+  <gmap-map class="map-container" :center="{lat:1.38, lng:103.8}" :zoom="12">
+    <gmap-marker :position="{lat:1.38, lng:103.8}">
+    </gmap-marker>
+    <gmap-info-window :position="{lat:1.38, lng:103.8}">
+      Hello world!
+    </gmap-info-window>
+  </gmap-map>    
+
   </div>
 </template>
 
@@ -16,31 +19,21 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import utility from '../utility';
 
- export default Vue.extend({
-     components: {
-     },
-     data: function() {
-         return {
-             apiKey: GOOGLE_MAPS_API_KEY
-         };
-     },
-     methods: {
-         greet() {
-             console.log("hello");
-             console.log("state val is %o", this.$store.state.count);
-         },
-         doIncrement() {
-             this.$store.dispatch('increment');
-         },
-     },
-     // mapState doesn't work with typescript: "Property 'mapState' does not exist on type"
-     // So we manually create the relevant computed properties.
-     computed: {
-         count: function (this: any) {
-             return this.$store.state.count;
-         }
-     }
- });
+import * as VueGoogleMaps from 'vue2-google-maps';
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: GOOGLE_MAPS_API_KEY,
+    v: 3,
+    libraries: 'places'
+  }
+})
+
+
+export default Vue.extend({
+    components: {
+    },
+});
 </script>
 
 <style>
@@ -54,4 +47,20 @@ body {
 h1,h2 { font-family: Georgia; }
 
 p, label { font-family: Arial, sans-serif; }
+
+.map-container {
+
+    width: 500px;
+    height: 300px;
+}
+
+.vue-map-container {
+width: 100%;
+height:100%;
+}
+.vue-map-container .vue-map {
+width: 100%;
+height:100%;
+}
+
 </style>

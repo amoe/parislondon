@@ -34,6 +34,7 @@
     "build": "make -f main.mk dist"
   },
   "dependencies": {
+    "@google/maps": "^0.4.6",
     "vue2-google-maps": "^0.8.11"
   }
 }
