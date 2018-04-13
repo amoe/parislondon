@@ -2,11 +2,10 @@
   <div>
     <h1>Mapping</h1>
 
-  <gmap-map class="map-container" :center="{lat:1.38, lng:103.8}" :zoom="12"
-            style="width:600px;height:400px;">
+  <gmap-map class="map-container" :center="centerExpression" :zoom="12">
     <gmap-marker :position="centerExpression">
     </gmap-marker>
-    <gmap-info-window :position="{lat:1.38, lng:103.8}">
+    <gmap-info-window :position="centerExpression">
       Hello world!
     </gmap-info-window>
   </gmap-map>    
@@ -21,6 +20,16 @@ import utility from '../utility';
 import sprintf from 'sprintf-js';
 import * as VueGoogleMaps from 'vue2-google-maps';
 
+const KILOMETRE_ZERO = {
+    latitude: 48.853622,
+    longitude: 2.348768
+};
+
+const EQUESTRIAN_STATUE = {
+    latitude: 51.507861,
+    longitude: -0.127570
+};
+
 function domainToGmap(datum) {
     return {
         lat: datum.latitude,
@@ -34,10 +43,7 @@ export default Vue.extend({
     },
     data() {
         return {
-            center: {
-                latitude: 1.38,
-                longitude: 103.8
-            }
+            center: KILOMETRE_ZERO
         };
     },
     computed: {
@@ -59,4 +65,9 @@ body {
 h1,h2 { font-family: Georgia; }
 
 p, label { font-family: Arial, sans-serif; }
+
+.map-container {
+    width: 600px;
+    height: 400px;
+}
 </style>
