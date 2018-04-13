@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1>New Project from amoe-vue-template</h1>
+    <h1>Mapping</h1>
 
   <gmap-map class="map-container" :center="{lat:1.38, lng:103.8}" :zoom="12"
             style="width:600px;height:400px;">
-    <gmap-marker :position="{lat:1.38, lng:103.8}">
+    <gmap-marker :position="centerExpression">
     </gmap-marker>
     <gmap-info-window :position="{lat:1.38, lng:103.8}">
       Hello world!
@@ -18,13 +18,33 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import utility from '../utility';
-
+import sprintf from 'sprintf-js';
 import * as VueGoogleMaps from 'vue2-google-maps';
+
+function domainToGmap(datum) {
+    return {
+        lat: datum.latitude,
+        lng: datum.longitude
+    };
+}
 
 export default Vue.extend({
     components: {
         VueGoogleMaps
     },
+    data() {
+        return {
+            center: {
+                latitude: 1.38,
+                longitude: 103.8
+            }
+        };
+    },
+    computed: {
+        centerExpression(this: any) {
+            return domainToGmap(this.center);
+        }
+    }
 });
 </script>
 
