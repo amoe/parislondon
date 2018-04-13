@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Mapping</h1>
+    <h1>Paris-London; Global Music Connections 1962-89</h1>
 
   <fry-bender :center="kilometreZero"></fry-bender>
   <fry-bender :center="equestrianStatue"></fry-bender>
