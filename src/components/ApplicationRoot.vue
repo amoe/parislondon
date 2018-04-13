@@ -2,13 +2,8 @@
   <div>
     <h1>Mapping</h1>
 
-  <gmap-map class="map-container" :center="centerExpression" :zoom="12">
-    <gmap-marker :position="centerExpression">
-    </gmap-marker>
-    <gmap-info-window :position="centerExpression">
-      Hello world!
-    </gmap-info-window>
-  </gmap-map>    
+  <fry-bender :center="kilometreZero"></fry-bender>
+  <fry-bender :center="equestrianStatue"></fry-bender>
 
   </div>
 </template>
@@ -19,6 +14,7 @@ import Vuex from 'vuex';
 import utility from '../utility';
 import sprintf from 'sprintf-js';
 import * as VueGoogleMaps from 'vue2-google-maps';
+import FryBender from './FryBender.vue';
 
 const KILOMETRE_ZERO = {
     latitude: 48.853622,
@@ -30,26 +26,15 @@ const EQUESTRIAN_STATUE = {
     longitude: -0.127570
 };
 
-function domainToGmap(datum) {
-    return {
-        lat: datum.latitude,
-        lng: datum.longitude
-    };
-}
-
 export default Vue.extend({
     components: {
-        VueGoogleMaps
+        VueGoogleMaps, FryBender
     },
     data() {
         return {
-            center: KILOMETRE_ZERO
+            kilometreZero: KILOMETRE_ZERO,
+            equestrianStatue: EQUESTRIAN_STATUE
         };
-    },
-    computed: {
-        centerExpression(this: any) {
-            return domainToGmap(this.center);
-        }
     }
 });
 </script>
@@ -66,8 +51,4 @@ h1,h2 { font-family: Georgia; }
 
 p, label { font-family: Arial, sans-serif; }
 
-.map-container {
-    width: 600px;
-    height: 400px;
-}
 </style>
