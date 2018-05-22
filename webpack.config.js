@@ -34,11 +34,20 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            url: false
+                            url: true
                         }
                     }
                 ],
                 
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {}
+                    }
+                ]
             }
         ],
     },

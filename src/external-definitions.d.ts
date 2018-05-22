@@ -1,1 +1,1 @@
-declare var GOOGLE_MAPS_API_KEY: string;
+declare var MAPBOX_ACCESS_TOKEN: string;
