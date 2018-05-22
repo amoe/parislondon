@@ -29,6 +29,49 @@ import locationData from '../data';
 import * as c3 from 'c3';
 import * as L from 'leaflet';
 
+
+const markerIconSelections = {
+    green: new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    }),
+    red: new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    }),
+    blue: new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    })
+}
+
+// position is lat, lng array
+function addPopup(theMap, position, text, iconType) {
+   const icon = markerIconSelections[iconType];
+
+    // Add a marker
+    var marker = L.marker(position, {icon}).addTo(theMap);
+
+    const popup = L.popup().setContent(text);
+
+    marker.bindPopup(popup);
+}
+
+
+
+
 const LEAFLET_TILE_LAYER_OPTIONS = {
     attributionControl: false,
     maxZoom: 18,
@@ -69,15 +112,6 @@ const EQUESTRIAN_STATUE = {
     longitude: -0.127570
 };
 
-function addPopup(theMap) {
-    // Add a marker
-    var marker = L.marker([51.5, -0.09]).addTo(theMap);
-
-    const popup = L.popup().setContent("I am a standalone popup");
-
-    marker.bindPopup(popup);
-}
-
 function makeMap(containerId, position) {
     var theMap = L.map(containerId).setView(
         [position.latitude, position.longitude], 13
@@ -95,7 +129,32 @@ function doMain() {
     const mapParis = makeMap('map-paris', KILOMETRE_ZERO);
     const mapLondon = makeMap('map-london', EQUESTRIAN_STATUE);
 
-    addPopup(mapLondon);
+    for (let datum of locationData.london1960s) {
+        addPopup(
+            mapLondon,
+            [datum.location.latitude, datum.location.longitude],
+            datum.address,
+            'blue'
+        );
+    }
+
+    for (let datum of locationData.london1970s) {
+        addPopup(
+            mapLondon,
+            [datum.location.latitude, datum.location.longitude],
+            datum.address,
+            'green'
+        );
+    }
+
+    for (let datum of locationData.london1980s) {
+        addPopup(
+            mapLondon,
+            [datum.location.latitude, datum.location.longitude],
+            datum.address,
+            'red'
+        );
+    }
 
     var chart = c3.generate({
         bindto: '#chart',
