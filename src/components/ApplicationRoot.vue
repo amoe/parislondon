@@ -2,8 +2,11 @@
   <div>
     <h1>Paris-London; Global Music Connections 1962-89</h1>
 
+
   <fry-bender :center="kilometreZero"></fry-bender>
   <fry-bender :center="equestrianStatue"></fry-bender>
+
+  {{data}}
 
   </div>
 </template>
@@ -15,6 +18,7 @@ import utility from '../utility';
 import sprintf from 'sprintf-js';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import FryBender from './FryBender.vue';
+import data from '../data';
 
 const KILOMETRE_ZERO = {
     latitude: 48.853622,
@@ -33,7 +37,8 @@ export default Vue.extend({
     data() {
         return {
             kilometreZero: KILOMETRE_ZERO,
-            equestrianStatue: EQUESTRIAN_STATUE
+            equestrianStatue: EQUESTRIAN_STATUE,
+            data
         };
     }
 });
