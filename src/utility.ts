@@ -1,3 +1,23 @@
+// const newAggregate = {};
+// for (let k of Object.keys(this.locationData)) {
+//     newAggregate[k] = this.locationData[k].map(splitGpsPoints);
+// }
+
+// console.log(JSON.stringify(newAggregate));
+
+function splitGpsPoints(datum) {
+    const all = datum.location.trim().split(", ");
+
+    return {
+        address: datum.address,
+        location: {
+            latitude: parseFloat(all[0]),
+            longitude: parseFloat(all[1])
+        }
+    };
+}
+
+
 const functions = {
     // This is taken from the Axios docs.  Should be ported to loglevel
     handleAxiosError(error) {

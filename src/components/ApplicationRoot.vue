@@ -6,7 +6,7 @@
   <fry-bender :center="kilometreZero"></fry-bender>
   <fry-bender :center="equestrianStatue"></fry-bender>
 
-  {{data}}
+  {{locationData}}
 
   </div>
 </template>
@@ -18,7 +18,7 @@ import utility from '../utility';
 import sprintf from 'sprintf-js';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import FryBender from './FryBender.vue';
-import data from '../data';
+import locationData from '../data';
 
 const KILOMETRE_ZERO = {
     latitude: 48.853622,
@@ -30,6 +30,7 @@ const EQUESTRIAN_STATUE = {
     longitude: -0.127570
 };
 
+
 export default Vue.extend({
     components: {
         VueGoogleMaps, FryBender
@@ -38,8 +39,10 @@ export default Vue.extend({
         return {
             kilometreZero: KILOMETRE_ZERO,
             equestrianStatue: EQUESTRIAN_STATUE,
-            data
+            locationData
         };
+    },
+    created() {
     }
 });
 </script>
