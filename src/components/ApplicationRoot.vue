@@ -95,6 +95,7 @@ function doMain() {
     const mapParis = makeMap('map-paris', KILOMETRE_ZERO);
     const mapLondon = makeMap('map-london', EQUESTRIAN_STATUE);
 
+    addPopup(mapLondon);
 
     var chart = c3.generate({
         bindto: '#chart',
