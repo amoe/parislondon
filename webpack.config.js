@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const loadDefinitions = require('./build/load-definitions');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     entry: ["./src/entry.ts"],
@@ -23,10 +24,15 @@ module.exports = {
                 options: {
                     appendTsSuffixTo: [/\.vue$/]
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader'
+                ]
             }
         ],
-        loaders: [
-        ]
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -39,6 +45,7 @@ module.exports = {
         },
     },
     plugins: [
-        new webpack.DefinePlugin(loadDefinitions())
+        new webpack.DefinePlugin(loadDefinitions()),
+        new VueLoaderPlugin()
     ]
 };
