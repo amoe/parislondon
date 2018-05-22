@@ -26,8 +26,7 @@ Brockwell Park, London – 24 September 1978  Rock against Racism Carnival     5
 Africa Centre, 38 King Street, Convent Garden, London WC2.  Opened in 1960 moved to Southwark in 2013.     51.512083, -0.124354 
 ABC Music 7 The Broadway, Southall    51.511451, -0.376130 
 Southall, UB1 1JR- bhangra specialist and record label    51.511401, -0.376310 
-Honest Jon's
-278 Portobello Road, London W10 5TE, 020-8969 9822 record shop – first to sell punk and reggae together , established in 1974 – now a world music label.    51.519197, -0.207429 
+Honest Jon's, 278 Portobello Road, London W10 5TE 51.519197, -0.207429 
 Third World Record Shop, Third World Records (113 Stoke Newington Road N16) – reggae, dub specialist     51.554853, -0.074923 
 Tops Record Shop (120 Acre Lane, SW2) – specialist reggae and dub     51.459714, -0.123880 
 
