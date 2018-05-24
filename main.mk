@@ -6,11 +6,12 @@
 WEBPACK = ./node_modules/.bin/webpack
 dist_path = dist
 
+# webpack now creates the dist folder automatically
 dist: bundle.js
-	mkdir -p dist
-	cp -a index.xhtml bundle.js static $(dist_path)
+	cp -a index.html static $(dist_path)
 
 .PHONY: dist
 
 bundle.js: src
-	$(WEBPACK)
+	$(WEBPACK) --mode production
+

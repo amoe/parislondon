@@ -64,5 +64,8 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin(loadDefinitions()),
         new VueLoaderPlugin()
-    ]
+    ],
+    performance: {
+        hints: false
+    }
 };

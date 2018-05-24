@@ -3,5 +3,4 @@ intermediate_data/
 node_modules/
 __pycache__/
 dist/
-bundle.js
 yarn-error.log
