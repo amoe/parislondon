@@ -29,7 +29,24 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     'vue-style-loader',
-                    'css-loader'
+
+                    // css-loader, but disabling the handling of urls.
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: true
+                        }
+                    }
+                ],
+                
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {}
+                    }
                 ]
             }
         ],

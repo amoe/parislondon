@@ -6,19 +6,18 @@ import ApplicationRoot from './components/ApplicationRoot.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import actions from './actions'
-import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(Vuex);
-Vue.use(VueGoogleMaps, {
-    load: {
-        key: GOOGLE_MAPS_API_KEY,
-        version: '3.26',
-        libraries: 'places', // This is required if you use the Autocomplete plugin
-        // OR: libraries: 'places,drawing'
-        // OR: libraries: 'places,drawing,visualization'
-        // (as you require)
-    }
-})
+
+const leaflet = require('leaflet');
+
+delete leaflet.Icon.Default.prototype._getIconUrl;
+
+const iconRetinaUrl = require('leaflet/dist/images/marker-icon-2x.png');
+const iconUrl = require('leaflet/dist/images/marker-icon.png');
+const shadowUrl = require('leaflet/dist/images/marker-shadow.png');
+
+leaflet.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl })
 
 
 const store = new Vuex.Store({
