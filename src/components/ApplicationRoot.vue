@@ -59,8 +59,7 @@ const markerIconSelections = {
 
 // position is lat, lng array
 function addPopup(theMap, position, text, iconType) {
-   const icon = markerIconSelections[iconType];
-
+    const icon = markerIconSelections[iconType];
     // Add a marker
     var marker = L.marker(position, {icon}).addTo(theMap);
 
