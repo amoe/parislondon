@@ -5,7 +5,7 @@ import fabric
 import time
 import hashlib
 
-DEPLOYMENT_TARGET_DIRECTORY = '/srv/http/parislondon'
+DEPLOYMENT_TARGET_DIRECTORY = '/srv/http/solasistim/shl/parislondon'
 
 # because we can't combine rsync and sudo, we have to do this fairly silly
 # rigmarole        
@@ -17,8 +17,8 @@ def deploy(context, source, target):
         % (source, context.host, temporary_path)
     )
     print("Finished rsync")
-    context.sudo("mkdir -p %s" % (target,), pty=True)
-    context.sudo("rsync -rtv --delete %s/ %s/" % (temporary_path, target), target=True)
+    context.sudo("mkdir -p %s" % (target,))
+    context.sudo("rsync -rtv --delete %s/ %s/" % (temporary_path, target))
     context.run("rm -rf %s" % temporary_path)
 
 @invoke.task
