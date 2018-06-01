@@ -11,13 +11,16 @@
       <div id="map-london" class="map"></div>
     </div>
 
-    <div class="sidebar" v-show="isSidebarShown">
-      <h1>PARIS / LONDON</h1>
+    <transition name="fade"
+                v-on:after-leave="afterLeave">
+      <div class="sidebar" v-show="isSidebarShown">
+        <h1>PARIS / LONDON</h1>
 
-      <h2>Population</h2>
+        <h2>Population</h2>
 
-      <div id="chart"></div>
-    </div>
+        <div id="chart"></div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -149,6 +152,13 @@ export default Vue.extend({
             fn(this.mapParis);
             fn(this.mapLondon);
         },
+        afterLeave() {
+            console.log("after leave callback triggered");
+
+            // Use of nextTick here is required to avoid visual glitches
+            // See <https://stackoverflow.com/questions/24412325>
+            this.forEachMap(m => m.invalidateSize());
+        },
         doMain() {
             const mapParis = makeMap('map-paris', KILOMETRE_ZERO);
             const mapLondon = makeMap('map-london', EQUESTRIAN_STATUE);
@@ -203,13 +213,8 @@ export default Vue.extend({
         toggleSidebar() {
             this.isSidebarShown = !this.isSidebarShown;
 
-            // Use of nextTick here is required to avoid visual glitches
-            // See <https://stackoverflow.com/questions/24412325>
-            this.$nextTick(() => {
-                this.forEachMap(function (m) {
-                    m.invalidateSize();
-                });
-            });
+            // Invalidating the size will be handled by the `afterLeave` callback
+            // above
         }
     }
 });
@@ -295,5 +300,13 @@ g.c3-legend-item {
     font-family: 'Oxygen', sans-serif;
 }
 
+/* FADE TRANSITIONS FOR SIDEBAR */
 
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
 </style>
