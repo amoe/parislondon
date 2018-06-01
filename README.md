@@ -15,4 +15,4 @@ Deploy: `npx shipit staging deploy`
 
 or
 
-Deploy: `fab -H visarend.solasistim.net --prompt-for-sudo-password deploy_frontend`
+Deploy: `fab -H visarend.solasistim.net --prompt-for-sudo-password deploy-frontend`
