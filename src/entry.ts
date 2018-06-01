@@ -6,9 +6,6 @@ import ApplicationRoot from './components/ApplicationRoot.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import actions from './actions'
-import Element from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(Element);
 
 Vue.use(Vuex);
 
