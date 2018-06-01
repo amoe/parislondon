@@ -25,6 +25,7 @@ module.exports = {
                     appendTsSuffixTo: [/\.vue$/]
                 }
             },
+            // END rules needed for element-ui
             {
                 test: /\.css$/,
                 use: [
@@ -36,18 +37,20 @@ module.exports = {
                         options: {
                             url: true
                         }
-                    }
+                    },
+
+                    'postcss-loader'
                 ],
                 
             },
             {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {}
+                test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10000
                     }
-                ]
+                }]
             }
         ],
     },

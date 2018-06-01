@@ -11,6 +11,8 @@
     <div class="sidebar">
       <h1>PARIS / LONDON</h1>
 
+      <el-button>Foo</el-button>
+
       <h2>Population</h2>
 
       <div id="chart"></div>
