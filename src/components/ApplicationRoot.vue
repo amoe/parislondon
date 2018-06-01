@@ -1,4 +1,4 @@
-<template>
+n<template>
   <div class="content">
     <div class="header">
       Paris-London; Global Music Connections 1962-89
@@ -6,19 +6,69 @@
     </div>
 
 
-    <div class="maps">
+    <div class="maps" v-bind:class="{expanded: isMapExpanded}">
       <div id="map-paris" class="map"></div>
       <div id="map-london" class="map"></div>
     </div>
 
     <transition name="fade"
-                v-on:after-leave="afterLeave">
+                v-on:after-leave="afterLeave"
+                v-on:before-enter="beforeEnter">
       <div class="sidebar" v-show="isSidebarShown">
         <h1>PARIS / LONDON</h1>
 
         <h2>Population</h2>
 
         <div id="chart"></div>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id neque nec
+          velit ultricies sodales a sed leo. Maecenas vitae leo eleifend, accumsan odio
+          vitae, sodales massa. Sed purus sem, viverra non mi ac, dignissim ornare
+          leo. Nulla pharetra ipsum sit amet euismod egestas. Duis tellus urna, lacinia eu
+          dolor in, viverra aliquam purus. Maecenas dolor lorem, dapibus et cursus
+          pretium, laoreet at nunc. Proin ullamcorper justo ut nibh placerat
+          auctor. Integer rhoncus augue lorem, a finibus elit rhoncus sit amet. Vestibulum
+          efficitur mauris at feugiat hendrerit. Pellentesque maximus orci ac lacus
+          venenatis, ut rutrum dui dictum. Curabitur auctor turpis massa, sit amet auctor
+          libero mattis ac.</p>
+
+        <p>Sed suscipit accumsan interdum. Praesent bibendum nisl eget aliquam
+          dignissim. Donec lacinia a purus at lobortis. In ac sapien vel velit ultrices
+          congue. Donec at sapien non velit pretium consectetur ac id purus. Donec
+          placerat blandit ullamcorper. Maecenas nec luctus purus, ac blandit
+          nisl. Integer non pellentesque ligula. Sed ullamcorper dui vel mauris venenatis
+          lobortis.</p>
+
+        <p>Duis massa mauris, porttitor iaculis elit eu, pharetra finibus ipsum. Aenean nec
+          elit pretium, tempus mauris sed, sagittis enim. Cras efficitur, ligula vel
+          condimentum vulputate, odio dui posuere metus, in commodo ex risus eu quam. Nunc
+          odio sem, efficitur et tincidunt sit amet, dignissim sit amet
+          purus. Pellentesque habitant morbi tristique senectus et netus et malesuada
+          fames ac turpis egestas. Ut at ultrices nunc. Integer sed ex neque. Ut molestie
+          nibh sit amet quam scelerisque, et pellentesque est vestibulum. Quisque varius
+          lacus vitae tellus lacinia, efficitur blandit nibh aliquam. Curabitur vestibulum
+          aliquam lacus et elementum. Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Sed eleifend augue quis nulla lacinia mattis vitae vel nisi.</p>
+
+        <p>Curabitur maximus odio felis, sed rutrum metus laoreet eget. Nunc tempor sit
+          amet dolor ac pellentesque. Maecenas mollis ex sed augue consectetur
+          fringilla. Vestibulum ac turpis sed enim bibendum eleifend. Quisque quis
+          malesuada magna, sit amet congue arcu. Nunc in congue nunc. Pellentesque
+          tristique sem enim, non laoreet metus consectetur eu. Mauris finibus ipsum eget
+          eros posuere, ut porttitor quam gravida.</p>
+
+        <p>Aenean commodo velit at metus bibendum, eu egestas metus interdum. Curabitur sed
+          erat malesuada, egestas lorem in, facilisis sapien. Nullam maximus porttitor
+          velit et consequat. Curabitur malesuada quam eu arcu tincidunt
+          tincidunt. Phasellus quis pharetra tellus, vitae faucibus lorem. Vestibulum
+          luctus, justo a mattis consequat, libero odio pellentesque lectus, at euismod
+          dui leo in ante. Pellentesque lacus sem, varius eleifend imperdiet at, dictum
+          vitae dui. Vivamus elementum augue lacus, vitae consequat lacus porttitor
+          ut. Mauris mattis nibh in leo tempus interdum. Nam bibendum lectus viverra
+          scelerisque elementum. Etiam mattis vehicula ex, sed euismod libero aliquam
+          id. Suspendisse suscipit pulvinar mi ut consectetur. Etiam congue ante at tempor
+          facilisis. Donec vitae consectetur felis. Suspendisse arcu orci, elementum ac
+          laoreet in, gravida et urna.</p>
       </div>
     </transition>
   </div>
@@ -70,8 +120,6 @@ function addPopup(theMap, position, text, iconType) {
 
     marker.bindPopup(popup);
 }
-
-
 
 
 const LEAFLET_TILE_LAYER_OPTIONS = {
@@ -136,6 +184,7 @@ export default Vue.extend({
             equestrianStatue: EQUESTRIAN_STATUE,
             locationData,
             isSidebarShown: true,
+            isMapExpanded: false,
             mapParis: null,
             mapLondon: null
         };
@@ -155,9 +204,16 @@ export default Vue.extend({
         afterLeave() {
             console.log("after leave callback triggered");
 
+            this.isMapExpanded = true;
+
             // Use of nextTick here is required to avoid visual glitches
             // See <https://stackoverflow.com/questions/24412325>
-            this.forEachMap(m => m.invalidateSize());
+            this.$nextTick(function () {
+                this.forEachMap(m => m.invalidateSize())
+            });
+        },
+        beforeEnter() {
+            this.isMapExpanded = false;
         },
         doMain() {
             const mapParis = makeMap('map-paris', KILOMETRE_ZERO);
@@ -224,18 +280,20 @@ export default Vue.extend({
 @import url("~leaflet/dist/leaflet.css");
 @import url("~c3/c3.css");
 
-/*
 @font-face {
     font-family: 'Oxygen';
-    src: url("static/fonts/Oxygen-Regular.ttf");
+    src: url("../../static/fonts/Oxygen-Regular.ttf");
 }
 
 @font-face {
     font-family: 'Vollkorn';
-    src: url("static/fonts/Vollkorn-Regular.ttf");
+    src: url("../../static/fonts/Vollkorn-Regular.ttf");
 }
-*/
 
+
+p {
+    font-family: 'Oxygen', sans-serif;
+}
 
 div.content {
     display: grid;
@@ -254,8 +312,12 @@ div.content {
 
 .maps {
     grid-row-start: 2;
-    grid-column-start: span 12;
+    grid-column-start: span 10;
     border: 1px solid blue;
+}
+
+.maps.expanded {
+    grid-column-start: span 12;
 }
 
 .header {
@@ -271,6 +333,8 @@ div.content {
     grid-row-start: 2;
     grid-column-start: span 2;
     border: 1px solid green;
+    height: 92vh;   /* 2x div.map height */
+    overflow-y: scroll;
 }
 
 
