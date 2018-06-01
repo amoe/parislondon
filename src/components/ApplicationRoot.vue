@@ -2,13 +2,16 @@
   <div class="content">
     <div class="header">
       Paris-London; Global Music Connections 1962-89
+    <button v-on:click="toggleSidebar">Toggle sidebar</button>
     </div>
+
 
     <div class="maps">
       <div id="map-paris" class="map"></div>
       <div id="map-london" class="map"></div>
     </div>
-    <div class="sidebar">
+
+    <div class="sidebar" v-if="isSidebarShown">
       <h1>PARIS / LONDON</h1>
 
       <h2>Population</h2>
@@ -121,54 +124,6 @@ function makeColumn(id, contents) {
     return [id].concat(contents);
 }
 
-function doMain() {
-    const mapParis = makeMap('map-paris', KILOMETRE_ZERO);
-    const mapLondon = makeMap('map-london', EQUESTRIAN_STATUE);
-
-    for (let datum of locationData.london1960s) {
-        addPopup(
-            mapLondon,
-            [datum.location.latitude, datum.location.longitude],
-            datum.address,
-            'blue'
-        );
-    }
-
-    for (let datum of locationData.london1970s) {
-        addPopup(
-            mapLondon,
-            [datum.location.latitude, datum.location.longitude],
-            datum.address,
-            'green'
-        );
-    }
-
-    for (let datum of locationData.london1980s) {
-        addPopup(
-            mapLondon,
-            [datum.location.latitude, datum.location.longitude],
-            datum.address,
-            'red'
-        );
-    }
-
-    var chart = c3.generate({
-        bindto: '#chart',
-        data: {
-            xs: {
-                'Paris': 'x1',
-                'London': 'x2'
-            },
-            columns: [
-                makeColumn('Paris', PARIS_POPULATION_DATA.map(x => x[2])),
-                makeColumn('London', LONDON_POPULATION_DATA.map(x => x[1])),
-                makeColumn('x1', PARIS_POPULATION_DATA.map(x => x[0])),
-                makeColumn('x2', LONDON_POPULATION_DATA.map(x => x[0]))
-            ]
-        }
-    });
-}
-
 export default Vue.extend({
     components: {
     },
@@ -176,18 +131,85 @@ export default Vue.extend({
         return {
             kilometreZero: KILOMETRE_ZERO,
             equestrianStatue: EQUESTRIAN_STATUE,
-            locationData
+            locationData,
+            isSidebarShown: true,
+            mapParis: null,
+            mapLondon: null
         };
     },
     created() {
     },
     mounted() {
-        this.$nextTick(function () {
-            doMain();
+        this.$nextTick(() => {
+            this.doMain();
         })
     },
     methods: {
+        forEachMap(fn) {
+            fn(this.mapParis);
+            fn(this.mapLondon);
+        },
         doMain() {
+            const mapParis = makeMap('map-paris', KILOMETRE_ZERO);
+            const mapLondon = makeMap('map-london', EQUESTRIAN_STATUE);
+
+            for (let datum of locationData.london1960s) {
+                addPopup(
+                    mapLondon,
+                    [datum.location.latitude, datum.location.longitude],
+                    datum.address,
+                    'blue'
+                );
+            }
+
+            for (let datum of locationData.london1970s) {
+                addPopup(
+                    mapLondon,
+                    [datum.location.latitude, datum.location.longitude],
+                    datum.address,
+                    'green'
+                );
+            }
+
+            for (let datum of locationData.london1980s) {
+                addPopup(
+                    mapLondon,
+                    [datum.location.latitude, datum.location.longitude],
+                    datum.address,
+                    'red'
+                );
+            }
+
+            var chart = c3.generate({
+                bindto: '#chart',
+                data: {
+                    xs: {
+                        'Paris': 'x1',
+                        'London': 'x2'
+                    },
+                    columns: [
+                        makeColumn('Paris', PARIS_POPULATION_DATA.map(x => x[2])),
+                        makeColumn('London', LONDON_POPULATION_DATA.map(x => x[1])),
+                        makeColumn('x1', PARIS_POPULATION_DATA.map(x => x[0])),
+                        makeColumn('x2', LONDON_POPULATION_DATA.map(x => x[0]))
+                    ]
+                }
+            });
+
+            this.mapParis = mapParis;
+            this.mapLondon = mapLondon;
+
+        },
+        toggleSidebar() {
+            this.isSidebarShown = !this.isSidebarShown;
+
+            // Use of nextTick here is required to avoid visual glitches
+            // See <https://stackoverflow.com/questions/24412325>
+            this.$nextTick(() => {
+                this.forEachMap(function (m) {
+                    m.invalidateSize();
+                });
+            });
         }
     }
 });
@@ -197,15 +219,17 @@ export default Vue.extend({
 @import url("~leaflet/dist/leaflet.css");
 @import url("~c3/c3.css");
 
-/* @font-face { */
-/*     font-family: 'Oxygen'; */
-/*     src: url("static/fonts/Oxygen-Regular.ttf"); */
-/* } */
+/*
+@font-face {
+    font-family: 'Oxygen';
+    src: url("static/fonts/Oxygen-Regular.ttf");
+}
 
-/* @font-face { */
-/*     font-family: 'Vollkorn'; */
-/*     src: url("static/fonts/Vollkorn-Regular.ttf"); */
-/* } */
+@font-face {
+    font-family: 'Vollkorn';
+    src: url("static/fonts/Vollkorn-Regular.ttf");
+}
+*/
 
 
 div.content {
@@ -219,13 +243,13 @@ div.content {
 /* This class applies to both maps */
 .map {
     height: 46vh;
-    width: 81vw;
+/*    width: 81vw; */
     border: 1px solid red;
 }
 
 .maps {
     grid-row-start: 2;
-    grid-column-start: span 10;
+    grid-column-start: span 12;
     border: 1px solid blue;
 }
 
