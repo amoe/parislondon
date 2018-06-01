@@ -42,7 +42,6 @@
     "shipit": "^1.0.2",
     "shipit-cli": "^4.1.0",
     "shipit-deploy": "^4.1.0",
-    "vue2-google-maps": "^0.8.11",
     "webpack-cli": "^2.1.3"
   }
 }

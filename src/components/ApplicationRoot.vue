@@ -23,12 +23,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import utility from '../utility';
 import sprintf from 'sprintf-js';
-import * as VueGoogleMaps from 'vue2-google-maps';
-import FryBender from './FryBender.vue';
 import locationData from '../data';
 import * as c3 from 'c3';
 import * as L from 'leaflet';
-
 
 const markerIconSelections = {
     green: new L.Icon({
@@ -174,7 +171,6 @@ function doMain() {
 
 export default Vue.extend({
     components: {
-        VueGoogleMaps, FryBender
     },
     data() {
         return {
