@@ -11,7 +11,7 @@
       <div id="map-london" class="map"></div>
     </div>
 
-    <div class="sidebar" v-if="isSidebarShown">
+    <div class="sidebar" v-show="isSidebarShown">
       <h1>PARIS / LONDON</h1>
 
       <h2>Population</h2>
